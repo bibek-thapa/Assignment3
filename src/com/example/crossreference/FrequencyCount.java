@@ -72,6 +72,11 @@ public class FrequencyCount
 	    	  			
 	    	  			
 	    	  		}
+	    	  		else if(ch == '"') 
+	    	  		{
+	    	  			token+=ch;
+	    	  			state =5;
+	    	  		}
 	    	  		 
 	    	  		
 	    	  		else 
@@ -94,6 +99,12 @@ public class FrequencyCount
 	    	  		{
 	    	  			token+=ch;
 	    	  			state=3;
+	    	  		}
+	    	  		else if(ch == '"') 
+	    	  		{
+	    	  			token+=ch;
+	    	  			state=5;
+	    	  			
 	    	  		}
 	    	  		
 	    	  		else 
@@ -130,6 +141,11 @@ public class FrequencyCount
 	    	  		{
 	    	  			token+=ch;
 	    	  			state=3;
+	    	  		}
+	    	  		else if(ch == '"') 
+	    	  		{
+	    	  			token+=ch;
+	    	  			state =5;
 	    	  		}
 	    	  		
 	    	  		else 
@@ -173,7 +189,20 @@ public class FrequencyCount
 	    	  		break;
 	    	  		
 	    	  	case 5:
+	    	  		if(ch == '"') 
+	    	  		{
+	    	  			token +=ch;
+	    	  			state =6;
+	    	  			prevState =5;
+	    	  		}
 	    	  		break;
+	    	  		
+	    	  	case 6:
+	    	  		if(prevState == 5) 
+	    	  		{
+	    	  			token ="";
+	    	  			break;
+	    	  		}
 	    	  	}
 	    	  
 	    	  		

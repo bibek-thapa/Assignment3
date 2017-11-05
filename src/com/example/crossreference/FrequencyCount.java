@@ -39,10 +39,13 @@ public class FrequencyCount
 	      int state = 0 ;
 	      int prevState = 0;
 	      
+	      
 	      for ( char ch: list ) 
 	      {
 	    	    // process input text character by character,
 		    // identify each token and update its count 
+	    	  
+	    	
 
 	    	  	switch(state) 
 	    	  	{
@@ -62,10 +65,11 @@ public class FrequencyCount
 	    	  			
 	    	  		}
 	    	  		
-	    	  		else if(ch =='/')  // For the comment thing
+	    	  		else if(ch =='/')// For the comment thing
 	    	  		{
 	    	  			token+=ch;
 	    	  			state =3;
+	    	  			
 	    	  			
 	    	  		}
 	    	  		 
@@ -84,6 +88,12 @@ public class FrequencyCount
 	    	  			token+=ch;
 	    	  			state=1;
 	    	  			
+	    	  		}
+	    	  		
+	    	  		else if(ch=='/') 
+	    	  		{
+	    	  			token+=ch;
+	    	  			state=3;
 	    	  		}
 	    	  		
 	    	  		else 
@@ -116,6 +126,11 @@ public class FrequencyCount
 	    	  			state = 1;
 	    	  			prevState =2;
 	    	  		}
+	    	  		else if(ch=='/') 
+	    	  		{
+	    	  			token+=ch;
+	    	  			state=3;
+	    	  		}
 	    	  		
 	    	  		else 
 	    	  		{
@@ -126,29 +141,39 @@ public class FrequencyCount
 	    	  		break;
 	    	  		
 	    	  	case 3:
-	    	  		if(Character.isDigit(ch)) 
-	    	  		{
-	    	  			token += ch;
-	    	  			state = 2;
-	    	  			prevState =3;
-	    	  		}
-	    	  		
-	    	  		else if(Character.isLetter(ch)|| ch=='_') 
-	    	  		{
-	    	  			token += ch;
-	    	  			state = 1;
-	    	  			prevState = 3;
-	    	  		}
-	    	  		
-	    	  		else 
+	    	  		if(ch=='/') 
 	    	  		{
 	    	  			token+=ch;
-	    	  			state =3;
-	    	  			prevState =3;
+	    	  			state=4;
+	    	  			prevState=3;
+	    	  			
 	    	  		}
 	    	  		break;
 	    	  		
-	    		
+	    	  	case 4:
+	    	  		
+	    	  		if(ch=='/') 
+	    	  		{
+	    	  			
+	    	  			token += ch;
+	    	  			state =4;
+	    	  			prevState=4;
+	    	  		}
+	    	  		
+	    	  		else 
+	    	  		
+	    	  		{
+	    	  			if(prevState==4 || prevState ==3) {
+	    	  				
+	    	  				token = "";
+	    	  				
+	    	  				
+	    	  			}
+	    	  		}
+	    	  		break;
+	    	  		
+	    	  	case 5:
+	    	  		break;
 	    	  	}
 	    	  
 	    	  		

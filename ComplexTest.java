@@ -1,7 +1,6 @@
 import javax.swing.*;
 
 // This program is to test the Complex number class
-
 public class ComplexTest {
    public static void main( String args[] )
    {

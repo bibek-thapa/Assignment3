@@ -1,10 +1,10 @@
 package com.example.crossreference;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
 
 /**
@@ -17,7 +17,7 @@ public class FrequencyCount {
 	public FrequencyCount() {
 		// create an object from class Map and
 		// assign it to frequencies
-		frequencies = new TreeMap<String, Set<Integer>>();
+		frequencies = new LinkedHashMap<String, Set<Integer>>();
 
 	}
 
@@ -159,8 +159,17 @@ public class FrequencyCount {
 				case 6:
 					if (prevState == 5) {
 						token = "";
+						prevState=6;
 						break;
+						
 					}
+					
+					else if(prevState==6 && Character.isLetter(ch)) 
+					{
+						token+=ch;
+						state =1;
+					}
+					break;
 				}
 
 			}

@@ -17,18 +17,22 @@ public class FrequencyCount {
 	public FrequencyCount() {
 		// create an object from class Map and
 		// assign it to frequencies
+		//LinkedHashMap is used so that the identifier goes in the order as it went through
 		frequencies = new LinkedHashMap<String, Set<Integer>>();
 
 	}
 
 	public void parseText(Scanner in) throws IOException {
 		String token = "";
+		
+		//line number always start from Line 1
 		int lineNo = 1;
 
 		while (in.hasNextLine()) {
 			String line = in.nextLine() + " ";
 			char[] list = line.toCharArray();
 			int state = 0;
+			//previous state is defined so that it can be helpful for the comment and comma
 			int prevState = 0;
 
 			for (char ch : list) {
@@ -48,12 +52,12 @@ public class FrequencyCount {
 
 					}
 
-					else if (ch == '/')// For the comment thing
+					else if (ch == '/')//  checks for the first character of the comment
 					{
 						token += ch;
 						state = 3;
 
-					} else if (ch == '"') {
+					} else if (ch == '"') { // checks the first comma
 						token += ch;
 						state = 5;
 					}
@@ -66,7 +70,7 @@ public class FrequencyCount {
 					break;
 
 				case 1:
-					if (Character.isLetterOrDigit(ch) || ch == '_') {
+					if (Character.isLetterOrDigit(ch) || ch == '_') { //checks if it is letter or underscore
 						token += ch;
 						state = 1;
 
@@ -129,7 +133,7 @@ public class FrequencyCount {
 					break;
 
 				case 4:
-
+					//checks the second comment state
 					if (ch == '/') {
 
 						token += ch;
@@ -137,6 +141,8 @@ public class FrequencyCount {
 						prevState = 4;
 					}
 
+					//checks if the previous state was comment character.Both of these previous state 
+					//gives the comment characters
 					else
 
 					{
@@ -149,7 +155,8 @@ public class FrequencyCount {
 					break;
 
 				case 5:
-					if (ch == '"') {
+					// checks the second comma
+					if (ch == '"') { 
 						token += ch;
 						state = 6;
 						prevState = 5;
@@ -198,9 +205,11 @@ public class FrequencyCount {
 	// otherwise, increment its frequency count and update the map
 	public void updateCounts(String token, int linenumber) {
 
+		
 		Set<Integer> lineSet = frequencies.get(token);
 
 		if (lineSet == null) {
+			//TreeeSet defined so that the duplicate values do not come and integer goes in the numerical order
 			lineSet = new TreeSet<>();
 
 		}
